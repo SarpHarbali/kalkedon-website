@@ -20,51 +20,15 @@
     }
 
     .gallery-item {
-      position: relative; overflow: hidden;
       border-radius: 6px;
       aspect-ratio: 4/3;
-      cursor: pointer;
+      overflow: hidden;
     }
 
     .gallery-item img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.4s;
       display: block;
     }
-    .gallery-item:hover img { transform: scale(1.04); }
-
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(4,164,225,0.55) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: flex; align-items: flex-end;
-      padding: 1.25rem;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-overlay-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem; font-weight: 700;
-      color: white; letter-spacing: 0.04em;
-    }
-
-    /* Lightbox */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 200;
-      background: rgba(11,31,46,0.95);
-      align-items: center; justify-content: center;
-      padding: 2rem;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox-inner { position: relative; max-width: 900px; width: 100%; }
-    .lightbox img { width: 100%; border-radius: 6px; }
-    .lightbox-close {
-      position: absolute; top: -2.5rem; right: 0;
-      background: none; border: none; cursor: pointer;
-      color: white; font-size: 1.5rem; line-height: 1;
-      opacity: 0.7; transition: opacity 0.2s;
-    }
-    .lightbox-close:hover { opacity: 1; }
 
     @media (max-width: 760px) {
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -109,49 +73,33 @@
   </div>
 
   <section class="gallery-section">
-    <div class="gallery-grid" id="galleryGrid">
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/c0c02a60-6ada-4b9e-805c-314f892e2821.jpg" data-label="Tank Interior — Barrel View">
+    <div class="gallery-grid">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/c0c02a60-6ada-4b9e-805c-314f892e2821.jpg" alt="Interior view of ISO tank container barrel looking up through the manlid opening">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">Tank Interior — Barrel View</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/6cce7116-038d-49f2-9d56-e5bd6bbb0382.jpg" data-label="Tank Interior — Inspection Ready">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/6cce7116-038d-49f2-9d56-e5bd6bbb0382.jpg" alt="Second interior barrel view of Kalkedon ISO tank container">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">Tank Interior — Inspection Ready</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/ad3de356-c8e9-4e72-b5c2-180eec867189.jpg" data-label="Bottom Discharge System">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/ad3de356-c8e9-4e72-b5c2-180eec867189.jpg" alt="Underside of Kalkedon ISO tank container showing discharge valve and UIC railway frame">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">Bottom Discharge System</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/0be5c654-475c-4ac1-b9e9-2b7a34cbe794.jpg" data-label="Manlid — 8-Point Wing Nut Assembly">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/0be5c654-475c-4ac1-b9e9-2b7a34cbe794.jpg" alt="Close-up of ISO tank container manlid showing 8-point brass alloy wing nut assembly">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">Manlid — 8-Point Wing Nut Assembly</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/container.jpg" data-label="ISO Tank — Top Walkway View">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/container.jpg" alt="Top view of Kalkedon ISO tank container showing walkway and manlid">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">ISO Tank — Top Walkway View</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/4f539f30-ac2b-4340-84b7-d9e44051d154.jpg" data-label="ISO Tank — Front Face & Specifications">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/4f539f30-ac2b-4340-84b7-d9e44051d154.jpg" alt="Front face of Kalkedon ISO tank container showing KLDU identification number and weight specifications">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">ISO Tank — Front Face &amp; Specifications</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/ba991831-a38a-4e59-b6c4-576010321440.jpg" data-label="ISO Tank — Walkway Detail">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/ba991831-a38a-4e59-b6c4-576010321440.jpg" alt="Top walkway detail of Kalkedon ISO tank container showing manlid and fittings">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">ISO Tank — Walkway Detail</span></div>
       </div>
-      <div class="gallery-item" data-src="./brand_assets/Images/Others/3154aa52-8bf1-403f-b49d-114f4bac73dc.jpg" data-label="Port Loading — Sea Freight Operation">
+      <div class="gallery-item">
         <img src="./brand_assets/Images/Others/3154aa52-8bf1-403f-b49d-114f4bac73dc.jpg" alt="Kalkedon ISO tank container being crane-loaded at a container port">
-        <div class="gallery-overlay"><span class="gallery-overlay-label">Port Loading — Sea Freight</span></div>
       </div>
     </div>
   </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <div class="lightbox-inner">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-      <img id="lightboxImg" src="" alt="">
-    </div>
-  </div>
 
   <!-- CONTACT BANNER -->
   <section class="contact-banner">
@@ -226,25 +174,6 @@
     hamburger.addEventListener('click', () => { const open = mobileMenu.classList.toggle('open'); hamburger.setAttribute('aria-expanded', String(open)); });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); }));
 
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.addEventListener('click', () => {
-        lightboxImg.src = item.dataset.src;
-        lightboxImg.alt = item.dataset.label || '';
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-      lightboxImg.src = '';
-    }
-    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 </body>
 </html>
