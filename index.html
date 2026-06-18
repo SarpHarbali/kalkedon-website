@@ -153,6 +153,7 @@
     .dark-section .section-heading { color: white; }
     .dark-section .section-sub { color: rgba(255,255,255,0.5); }
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.75rem; }
+    .freight-layout { display: grid; grid-template-columns: 1fr 0.55fr; gap: 3rem; align-items: start; }
 
     @media (max-width: 900px) {
       .slider-arrow { display: none; }
@@ -161,6 +162,7 @@
       .hero-content { padding: 8rem 1.5rem 4rem; }
       .services-section, .dark-section, .freight-section { padding-left: 1.5rem; padding-right: 1.5rem; }
       .freight-item { grid-template-columns: 36px 1fr; gap: 1.25rem; }
+      .freight-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -307,7 +309,7 @@
   <!-- FREIGHT DETAIL -->
   <section class="freight-section">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 0.55fr;gap:3rem;align-items:start;">
+      <div class="freight-layout">
         <div>
           <div class="section-label">Transport Modes</div>
           <h2 class="section-heading">Freight Forwarding in Detail</h2>
