@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkedon — Beyond the Borders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    /* ── HERO ─────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-texture {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background-image: repeating-linear-gradient(
+        45deg, transparent, transparent 28px,
+        rgba(255,255,255,0.012) 28px, rgba(255,255,255,0.012) 29px
+      );
+    }
+
+    /* ── SLIDER ───────────────────────────────── */
+    .slider-track { position: absolute; inset: 0; z-index: 0; }
+    .slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(11,31,46,0.88) 0%,
+        rgba(11,31,46,0.6) 45%,
+        rgba(11,31,46,0.25) 100%
+      );
+    }
+    .slide-caption {
+      position: absolute; bottom: 1.5rem; right: 2rem;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── SLIDER ARROWS ────────────────────────── */
+    .slider-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 4; width: 48px; height: 48px;
+      border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25);
+      background: rgba(11,31,46,0.4);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: white;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(6px);
+    }
+    .slider-arrow:hover { background: var(--sky); border-color: var(--sky); }
+    .slider-arrow:active { opacity: 0.85; }
+    .slider-arrow:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+    .slider-arrow.prev { left: 1.75rem; }
+    .slider-arrow.next { right: 1.75rem; }
+    .slider-arrow svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── HERO CONTENT ─────────────────────────── */
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1100px; margin: 0 auto;
+      padding: 9rem 3rem 5rem;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.85rem;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero-eyebrow::before { content:''; display:inline-block; width:32px; height:2px; background:var(--sky); }
+    .hero h1 {
+      font-size: clamp(3.75rem, 9vw, 6.5rem);
+      font-weight: 800; line-height: 0.96;
+      color: white; letter-spacing: -0.02em;
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.7s ease 0.25s both;
+    }
+    .hero h1 .accent { color: var(--sky); }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.72;
+      color: rgba(255,255,255,0.7);
+      max-width: 500px; margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.55s both;
+    }
+    .slider-dots {
+      display: flex; gap: 0.5rem; margin-top: 1.75rem;
+      animation: fadeUp 0.7s ease 0.65s both;
+    }
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); border: none; cursor: pointer;
+      padding: 0; transition: background 0.2s, transform 0.2s;
+    }
+    .slider-dot.active { background: var(--sky); transform: scale(1.3); }
+    .slider-dot:hover { background: rgba(255,255,255,0.65); }
+    .slider-dot:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+
+    /* ── HOME SECTIONS ────────────────────────── */
+    .services-section { background: white; padding: 6rem 3rem; }
+
+    .feature-block {
+      background: var(--steel); border-radius: 8px; padding: 2.25rem;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .feature-block:hover { transform: translateY(-4px); background: #214456; }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(4,164,225,0.13);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.35rem;
+    }
+    .feature-icon svg { width: 24px; height: 24px; stroke: var(--sky); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .feature-title { font-size: 1.35rem; font-weight: 700; color: white; margin-bottom: 0.75rem; }
+    .feature-text { font-size: 0.9rem; line-height: 1.68; color: rgba(255,255,255,0.55); }
+
+    .freight-section { background: var(--ice); padding: 6rem 3rem; }
+    .freight-grid { display: flex; flex-direction: column; }
+    .freight-item {
+      display: grid; grid-template-columns: 56px 1fr;
+      gap: 2.25rem; align-items: start;
+      padding: 2.75rem 0;
+      border-bottom: 1px solid rgba(4,164,225,0.14);
+    }
+    .freight-item:last-child { border-bottom: none; }
+    .freight-icon-wrap { padding-top: 0.25rem; display: flex; flex-direction: column; align-items: center; }
+    .freight-icon-wrap svg { width: 34px; height: 34px; stroke: var(--sky); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .freight-content h3 { font-size: 1.7rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+    .freight-content p { font-size: 0.95rem; line-height: 1.78; color: #4a6070; }
+
+    .dark-section { background: var(--navy); padding: 6rem 3rem; }
+    .dark-section .section-heading { color: white; }
+    .dark-section .section-sub { color: rgba(255,255,255,0.5); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.75rem; }
+
+    @media (max-width: 900px) {
+      .slider-arrow { display: none; }
+    }
+    @media (max-width: 620px) {
+      .hero-content { padding: 8rem 1.5rem 4rem; }
+      .services-section, .dark-section, .freight-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .freight-item { grid-template-columns: 36px 1fr; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <a href="./index.html" class="nav-logo"><img src="./brand_assets/logo.jpg" alt="Kalkedon"></a>
+    <ul class="nav-links">
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./services.html">Services</a></li>
+      <li><a href="./certifications.html">Certifications</a></li>
+      <li><a href="./gallery.html">Gallery</a></li>
+      <li><span class="lang-toggle"><span class="active">EN</span><span style="color:rgba(255,255,255,0.2)">/</span><span>TR</span></span></li>
+      <li><a href="./contact.html" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./certifications.html">Certifications</a>
+    <a href="./gallery.html">Gallery</a>
+    <a href="./contact.html">Contact Us</a>
+  </div>
+
+  <!-- HERO WITH SLIDER -->
+  <section class="hero" id="home" aria-label="Homepage hero">
+    <!-- Slider track -->
+    <div class="slider-track" id="sliderTrack" aria-hidden="true">
+      <div class="slide active" style="background-image:url('./brand_assets/Images/Slider/kalkedon-slider.jpg')">
+        <div class="slide-overlay"></div>
+        <span class="slide-caption">ISO Tank Fleet — Global Network</span>
+      </div>
+      <div class="slide" style="background-image:url('./brand_assets/Images/Slider/kalkedon-slider2.jpg')">
+        <div class="slide-overlay"></div>
+        <span class="slide-caption">Beyond the Borders — Integrated Logistics</span>
+      </div>
+      <div class="slide" style="background-image:url('./brand_assets/Images/Slider/kalkedon-slider3.jpg')">
+        <div class="slide-overlay"></div>
+        <span class="slide-caption">Sea Freight — Worldwide Coverage</span>
+      </div>
+      <div class="slide" style="background-image:url('./brand_assets/Images/Slider/banner-img3.jpg')">
+        <div class="slide-overlay"></div>
+        <span class="slide-caption">Air Freight &amp; Tank Safety</span>
+      </div>
+      <div class="slide" style="background-image:url('./brand_assets/Images/Slider/banner-imgson.jpg')">
+        <div class="slide-overlay"></div>
+        <span class="slide-caption">Heavy Lift &amp; Project Cargo</span>
+      </div>
+    </div>
+
+    <!-- Diagonal texture -->
+    <div class="hero-texture"></div>
+
+    <!-- Arrows -->
+    <button class="slider-arrow prev" id="sliderPrev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="slider-arrow next" id="sliderNext" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">International Chemical Logistics</div>
+      <h1>Delivering<br><span class="accent">Beyond</span><br>The Borders.</h1>
+      <p class="hero-sub">Kalkedon arranges the best means of transport, taking into account the type of goods and the customers' delivery requirements.</p>
+      <div class="hero-ctas">
+        <a href="./services.html" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          Our Services
+        </a>
+        <a href="./contact.html" class="btn-outline">Contact Us</a>
+      </div>
+      <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Slide navigation">
+        <button class="slider-dot active" data-slide="0" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+        <button class="slider-dot" data-slide="1" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+        <button class="slider-dot" data-slide="2" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+        <button class="slider-dot" data-slide="3" role="tab" aria-selected="false" aria-label="Slide 4"></button>
+        <button class="slider-dot" data-slide="4" role="tab" aria-selected="false" aria-label="Slide 5"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY SERVICES -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-heading">Our Key Services</h2>
+      <p class="section-sub">Kalkedon arranges the best means of transport, taking into account the type of goods and the customers' delivery requirements.</p>
+      <div class="cards-grid">
+        <a href="./services.html" class="service-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h3 class="card-title">Freight Forwarding</h3>
+          <p class="card-text">International freight forwarding, import/export of air cargo & sea cargo, and multi-modal transshipment worldwide.</p>
+        </a>
+        <a href="./services.html" class="service-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <h3 class="card-title">Bulk Logistics</h3>
+          <p class="card-text">Worldwide bulk transportations in isotank containers, road tankers and dry container liners for chemical and food industries.</p>
+        </a>
+        <a href="./services.html" class="service-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M3 12v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/><path d="M12 2v10"/><path d="M8 6l4-4 4 4"/></svg></div>
+          <h3 class="card-title">Caspian Freight Bridge</h3>
+          <p class="card-text">Specialized transit services via Istanbul connecting Europe to Central Asia, Azerbaijan, Kazakhstan, and Turkmenistan.</p>
+        </a>
+        <a href="./services.html" class="service-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <h3 class="card-title">Project Management for OIL &amp; GAS</h3>
+          <p class="card-text">Heavy lifts, over-sized cargo, full charters, route surveys, and end-to-end project logistics for the oil &amp; gas sector.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="dark-section">
+    <div class="container">
+      <div class="section-label" style="color:var(--sky)">Why Kalkedon</div>
+      <h2 class="section-heading">Built for Demanding Cargo</h2>
+      <p class="section-sub">As an international transport specialist, Kalkedon delivers the best logistics solutions to make its customers successful.</p>
+      <div class="features-grid">
+        <div class="feature-block">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <h3 class="feature-title">Bulk Logistics Specialist</h3>
+          <p class="feature-text">As an ISO Tank Operator since 1998, Kalkedon applies its own standards to offer quality beyond food grade — ensuring safety and compliance for the most demanding chemical cargo.</p>
+        </div>
+        <div class="feature-block">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <h3 class="feature-title">Integrated Logistics Solutions</h3>
+          <p class="feature-text">We offer well-developed end-to-end logistics management to manufacturers and retailers across a broad range of industries, from source to final destination.</p>
+        </div>
+        <div class="feature-block">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="feature-title">Competitive Freight Forwarding</h3>
+          <p class="feature-text">Reliable and competitive international freight forwarding solutions that support your continual growth and expansion in both established and new markets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREIGHT DETAIL -->
+  <section class="freight-section">
+    <div class="container">
+      <div class="section-label">Transport Modes</div>
+      <h2 class="section-heading">Freight Forwarding in Detail</h2>
+      <p class="section-sub">With a global network and strong partnerships with major air, ocean and road carriers, international freight forwarding is one of our core services.</p>
+      <div class="freight-grid">
+        <div class="freight-item">
+          <div class="freight-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+          <div class="freight-content">
+            <h3>Sea Freight</h3>
+            <p>FCL/LCL, door-to-door, multi-modal, and Hazardous Goods (IMCO). Worldwide coverage with tailor-made rates. Reliable shipping lines with slot contracts and regular inbound/outbound sailings.</p>
+          </div>
+        </div>
+        <div class="freight-item">
+          <div class="freight-icon-wrap"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="freight-content">
+            <h3>Road Freight</h3>
+            <p>R2 License holder. Daily FTL and LTL departures from Europe to Turkey and beyond, with specialized routing to Middle East and Caucasian countries. Temperature-controlled and Hazardous Goods available.</p>
+          </div>
+        </div>
+        <div class="freight-item">
+          <div class="freight-icon-wrap"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></div>
+          <div class="freight-content">
+            <h3>Air Freight</h3>
+            <p>Worldwide coverage with reliable airlines, just-in-time delivery, door-to-door service and full customs clearance. A dedicated team delivering your air freight requirements effectively.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT BANNER -->
+  <section class="contact-banner">
+    <div class="container">
+      <h2>Ready to move beyond the borders?</h2>
+      <div class="contact-details">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 9.8a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.91 6.91l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+44 131 240 1220</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>contact@kalkedon.com</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>93 George Street, Edinburgh EH2 3ES, UK</span>
+        </div>
+      </div>
+      <a href="./contact.html" class="btn-white">Get in Touch <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="./brand_assets/logo.jpg" alt="Kalkedon">
+        <p>As an international transport specialist, Kalkedon delivers the best logistics solutions to make its customers successful — always beyond the borders.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="./services.html">Freight Forwarding</a></li>
+          <li><a href="./services.html">Bulk Logistics</a></li>
+          <li><a href="./services.html">Caspian Freight Bridge</a></li>
+          <li><a href="./services.html">Project Management for OIL &amp; GAS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./services.html">Services</a></li>
+          <li><a href="./certifications.html">Certification</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Consent Explicit Form</a></li>
+          <li><a href="#">General Disclosure on Personal Data</a></li>
+          <li><a href="#">Illumination Text</a></li>
+          <li><a href="#">Application Form</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2017 kalkedon.com</span>
+      <span>Edinburgh, United Kingdom</span>
+    </div>
+  </footer>
+
+  <script>
+    // Nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Slider
+    const slides = document.querySelectorAll('.slide');
+    const dots   = document.querySelectorAll('.slider-dot');
+    let current  = 0;
+    let timer;
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      dots[current].setAttribute('aria-selected', 'false');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      dots[current].setAttribute('aria-selected', 'true');
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), 5000);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => { goTo(+dot.dataset.slide); startTimer(); });
+    });
+    document.getElementById('sliderPrev').addEventListener('click', () => { goTo(current - 1); startTimer(); });
+    document.getElementById('sliderNext').addEventListener('click', () => { goTo(current + 1); startTimer(); });
+
+    // Pause on hover
+    const heroEl = document.querySelector('.hero');
+    heroEl.addEventListener('mouseenter', () => clearInterval(timer));
+    heroEl.addEventListener('mouseleave', startTimer);
+
+    // Keyboard
+    heroEl.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { goTo(current - 1); startTimer(); }
+      if (e.key === 'ArrowRight') { goTo(current + 1); startTimer(); }
+    });
+
+    // Reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      startTimer();
+    }
+  </script>
+</body>
+</html>

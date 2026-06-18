@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certifications — Kalkedon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .cert-section { padding: 5.5rem 3rem; }
+    .cert-section.white { background: white; }
+    .cert-section.ice   { background: var(--ice); }
+    .cert-section.navy  { background: var(--navy); }
+
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .cert-card {
+      background: white; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(4,164,225,0.08), 0 1px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .cert-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(4,164,225,0.14); }
+
+    .cert-img-wrap {
+      background: var(--ice);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem;
+      border-bottom: 2px solid rgba(4,164,225,0.1);
+    }
+    .cert-img-wrap img { width: 100%; max-width: 200px; height: 260px; object-fit: cover; border-radius: 4px; }
+
+    .cert-info { padding: 1.5rem; flex: 1; }
+    .cert-num { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sky); margin-bottom: 0.4rem; font-family: 'Inter', sans-serif; }
+    .cert-name { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.35rem; }
+    .cert-sub { font-size: 0.84rem; color: #4a6070; }
+
+    .standards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; max-width: 1100px; margin: 0 auto; }
+    .std-item {
+      background: var(--steel); border-radius: 8px; padding: 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .std-item svg { width: 24px; height: 24px; stroke: var(--sky); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 0.1rem; }
+    .std-label { font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 0.25rem; }
+    .std-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+    @media (max-width: 620px) { .cert-section { padding: 4rem 1.5rem; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav nav-solid" id="nav">
+    <a href="./index.html" class="nav-logo"><img src="./brand_assets/logo.jpg" alt="Kalkedon"></a>
+    <ul class="nav-links">
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./services.html">Services</a></li>
+      <li><a href="./certifications.html" class="active">Certifications</a></li>
+      <li><a href="./gallery.html">Gallery</a></li>
+      <li><span class="lang-toggle"><span class="active">EN</span><span style="color:rgba(255,255,255,0.2)">/</span><span>TR</span></span></li>
+      <li><a href="./contact.html" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./certifications.html" class="active">Certifications</a>
+    <a href="./gallery.html">Gallery</a>
+    <a href="./contact.html">Contact Us</a>
+  </div>
+
+  <div class="page-hero">
+    <div class="page-hero-texture"></div>
+    <div class="page-hero-content">
+      <div class="eyebrow">Quality &amp; Compliance</div>
+      <h1>Our Certifications</h1>
+      <p>Kalkedon holds internationally recognized certifications demonstrating our commitment to safety, quality, and compliance across every transport mode.</p>
+    </div>
+  </div>
+
+  <!-- CERTIFICATES -->
+  <section class="cert-section white">
+    <div class="container">
+      <div class="section-label">Certified</div>
+      <h2 class="section-heading">International Standards</h2>
+      <p class="section-sub">Our certifications cover the full spectrum of chemical logistics — from container safety to hazardous goods transport and international trade compliance.</p>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="./brand_assets/Images/Certifications/e201942b-b7b8-481d-b639-3e359591be75.jpg" alt="ISO 9001:2008 Quality Management Certificate">
+          </div>
+          <div class="cert-info">
+            <div class="cert-num">Certificate 01</div>
+            <div class="cert-name">ISO 9001:2008</div>
+            <div class="cert-sub">Quality Management System — International freight forwarding and isotank container operations</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="./brand_assets/Images/Certifications/d72058db-ca74-4469-8753-7cf41c3f21ef.jpg" alt="ISO 14001:2004 Environmental Management Certificate">
+          </div>
+          <div class="cert-info">
+            <div class="cert-num">Certificate 02</div>
+            <div class="cert-name">ISO 14001:2004</div>
+            <div class="cert-sub">Environmental Management System — International freight forwarding and isotank container operations</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="./brand_assets/Images/Certifications/85c2d155-c4aa-4dd2-98bd-7af7ccc49663.jpg" alt="OHSAS 18001:2007 Occupational Health and Safety Certificate">
+          </div>
+          <div class="cert-info">
+            <div class="cert-num">Certificate 03</div>
+            <div class="cert-name">OHSAS 18001:2007</div>
+            <div class="cert-sub">Occupational Health &amp; Safety Management System — International freight forwarding and isotank container operations</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="./brand_assets/Images/Certifications/f8cac087-b12e-4c2e-b098-0ab82f45991e.jpg" alt="R2 Yetki Belgesi Turkish Road Transport License">
+          </div>
+          <div class="cert-info">
+            <div class="cert-num">Certificate 04</div>
+            <div class="cert-name">R2 Yetki Belgesi</div>
+            <div class="cert-sub">Turkish Ministry of Transport — International Road Freight Operator License</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALITY STATEMENT -->
+  <section class="cert-section ice">
+    <div class="container" style="max-width:800px;text-align:center">
+      <div class="section-label">Our Commitment</div>
+      <h2 class="section-heading">Quality Beyond Standards</h2>
+      <p style="font-size:1rem;line-height:1.8;color:#4a6070;margin-bottom:2.5rem;">As an ISO Tank Operator, Kalkedon applies its own internal standards that exceed the requirements of food grade classification. Every certificate we hold represents a tangible commitment — to our customers, to the environment, and to the safe transport of materials that matter.</p>
+      <a href="./contact.html" class="btn-primary">Enquire About Our Standards</a>
+    </div>
+  </section>
+
+  <!-- CONTACT BANNER -->
+  <section class="contact-banner">
+    <div class="container">
+      <h2>Ready to move beyond the borders?</h2>
+      <div class="contact-details">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 9.8a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.91 6.91l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+44 131 240 1220</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>contact@kalkedon.com</span>
+        </div>
+      </div>
+      <a href="./contact.html" class="btn-white">Get in Touch <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="./brand_assets/logo.jpg" alt="Kalkedon">
+        <p>As an international transport specialist, Kalkedon delivers the best logistics solutions to make its customers successful — always beyond the borders.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="./services.html">Freight Forwarding</a></li>
+          <li><a href="./services.html">Bulk Logistics</a></li>
+          <li><a href="./services.html">Caspian Freight Bridge</a></li>
+          <li><a href="./services.html">Project Management for OIL &amp; GAS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./services.html">Services</a></li>
+          <li><a href="./certifications.html">Certification</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Consent Explicit Form</a></li>
+          <li><a href="#">General Disclosure on Personal Data</a></li>
+          <li><a href="#">Illumination Text</a></li>
+          <li><a href="#">Application Form</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright &copy; 2017 kalkedon.com</span>
+      <span>Edinburgh, United Kingdom</span>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { const open = mobileMenu.classList.toggle('open'); hamburger.setAttribute('aria-expanded', String(open)); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); }));
+  </script>
+</body>
+</html>
